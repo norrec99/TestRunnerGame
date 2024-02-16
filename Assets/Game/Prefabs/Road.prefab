@@ -27,8 +27,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8996204355681965228}
   m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: -0.841, z: 0}
-  m_LocalScale: {x: 0.29981545, y: 1, z: 0.1720614}
+  m_LocalPosition: {x: 0.0135, y: -0.841, z: 0}
+  m_LocalScale: {x: 0.35882992, y: 1, z: 0.1720614}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8996204356634677093}
@@ -180,7 +180,7 @@ MonoBehaviour:
     showPathOptions: 1
     showVertexPathDisplayOptions: 0
     showVertexPathOptions: 1
-    showNormals: 1
+    showNormals: 0
     showNormalsHelpInfo: 0
     tabIndex: 0
   initialized: 1
@@ -198,8 +198,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pathCreator: {fileID: 8996204355800735360}
   autoUpdate: 1
-  roadWidth: 1.5
-  thickness: 1
+  roadWidth: 1.8
+  thickness: 2
   flattenSurface: 0
   roadMaterial: {fileID: 2100000, guid: 57a78e6f90d0add45892734e6de5df35, type: 2}
   undersideMaterial: {fileID: 2100000, guid: fce4fb1143a99e641ae58553295a68fc, type: 2}
