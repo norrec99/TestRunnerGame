@@ -39,6 +39,20 @@ public class PlayerManager : MonoBehaviour
             playerCurrentScale += increaseScaleAmount;
         }
     }
+    private void DecreasePlayerSize(int number, bool isMultiply)
+    {
+        float decreaseScaleAmount = number / 100f;
+        if (isMultiply)
+        {
+            transform.DOScale(Vector3.one * (playerCurrentScale / number), 0.5f);
+            playerCurrentScale /= number;
+        }
+        else
+        {
+            transform.DOScale(Vector3.one * (playerCurrentScale - decreaseScaleAmount), 0.5f);
+            playerCurrentScale -= decreaseScaleAmount;
+        }
+    }
 
     private void OnTriggerEnter(Collider other) 
     {
@@ -56,6 +70,22 @@ public class PlayerManager : MonoBehaviour
             else
             {
                 IncreasePlayerSize(multiplierGate.randomNumber, false);
+            }
+        }
+
+        if (other.CompareTag("Obstacle"))
+        {
+            other.GetComponent<BoxCollider>().enabled = false;
+
+            var obstacleObj = other.GetComponent<ObstacleController>();
+
+            if (obstacleObj.isMultiply)
+            {
+                DecreasePlayerSize(obstacleObj.randomNumber, true);
+            }
+            else
+            {
+                DecreasePlayerSize(obstacleObj.randomNumber, false);
             }
         }
     }
