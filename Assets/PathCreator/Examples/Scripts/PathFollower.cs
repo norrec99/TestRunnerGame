@@ -10,6 +10,12 @@ namespace PathCreation.Examples
         public EndOfPathInstruction endOfPathInstruction;
         public float speed = 5;
         float distanceTravelled;
+        private Animator animator;
+
+        private void Awake() 
+        {
+            animator = GetComponentInChildren<Animator>();
+        }
 
         void Start() {
             if (pathCreator != null)
@@ -17,6 +23,7 @@ namespace PathCreation.Examples
                 // Subscribed to the pathUpdated event so that we're notified if the path changes during the game
                 pathCreator.pathUpdated += OnPathChanged;
             }
+            animator.SetBool("Run", true);
         }
 
         void Update()
