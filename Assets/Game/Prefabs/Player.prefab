@@ -541,7 +541,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerTransform: {fileID: 8186545851980577087}
-  limitValue: 1.5
+  limitValue: 1.6
+  playerSpeed: 3
 --- !u!1 &5876674385601404121
 GameObject:
   m_ObjectHideFlags: 0

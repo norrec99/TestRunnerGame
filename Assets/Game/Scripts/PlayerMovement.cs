@@ -7,22 +7,63 @@ public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] private Transform playerTransform;
     [SerializeField] private float limitValue;
+    [SerializeField] private float playerSpeed;
 
+    private Vector3 mouseStartPos;
+    private Vector3 playerStartPos;
+    private bool moveByTouch;
+    private Camera mainCamera;
+
+    private void Awake() 
+    {
+        mainCamera = Camera.main;
+    }
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButton(0))
-        {
-            MovePlayer();
-        }
+        MoveThePlayer();
     }
-
-    private void MovePlayer()
+    private void MoveThePlayer()
     {
-        float halfScreen = Screen.width / 2;
-        float xPos = (Input.mousePosition.x - halfScreen) / halfScreen;
-        float finalXPos = Mathf.Clamp(xPos * limitValue, -limitValue, limitValue);
+        if (Input.GetMouseButtonDown(0))
+        {     
+            moveByTouch = true;
+       
+            var plane = new Plane(Vector3.up, 0f);
 
-        playerTransform.localPosition = new Vector3(finalXPos, 0, 0);
+            var ray = mainCamera.ScreenPointToRay(Input.mousePosition);
+            
+            if (plane.Raycast(ray,out var distance))
+            {
+                mouseStartPos = ray.GetPoint(distance + 10f);
+                playerStartPos = playerTransform.localPosition;
+            }
+        }
+        
+        if (Input.GetMouseButtonUp(0))
+        {
+            moveByTouch = false;
+        }
+        
+        if (moveByTouch)
+        { 
+            var plane = new Plane(Vector3.up, 0f);
+            var ray = mainCamera.ScreenPointToRay(Input.mousePosition);
+            
+            if (plane.Raycast(ray,out var distance))
+            {
+                var mousePos = ray.GetPoint(distance +  10f);
+                   
+                var move = mousePos - mouseStartPos;
+                   
+                var control = playerStartPos + move;
+
+
+                control.x = Mathf.Clamp(control.x, -limitValue, limitValue);
+
+                playerTransform.localPosition = new Vector3(Mathf.Lerp(playerTransform.localPosition.x,control.x,Time.deltaTime * playerSpeed)
+                    ,playerTransform.localPosition.y,playerTransform.localPosition.z);                  
+            }
+        }
     }
 }
